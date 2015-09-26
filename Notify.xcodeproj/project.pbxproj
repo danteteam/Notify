@@ -10,6 +10,7 @@
 		2C280C361BB6B752009A1723 /* Notify.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C280C351BB6B752009A1723 /* Notify.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2C280C3D1BB6B752009A1723 /* Notify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C280C321BB6B752009A1723 /* Notify.framework */; settings = {ASSET_TAGS = (); }; };
 		2C280C421BB6B752009A1723 /* NotifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C280C411BB6B752009A1723 /* NotifyTests.swift */; };
+		2C65BB231BB6BCFB00C8EAB3 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C65BB221BB6BCFB00C8EAB3 /* Notify.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		2C280C3C1BB6B752009A1723 /* NotifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C280C411BB6B752009A1723 /* NotifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyTests.swift; sourceTree = "<group>"; };
 		2C280C431BB6B752009A1723 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C65BB221BB6BCFB00C8EAB3 /* Notify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		2C280C341BB6B752009A1723 /* Notify */ = {
 			isa = PBXGroup;
 			children = (
+				2C65BB211BB6BCFB00C8EAB3 /* Classes */,
 				2C280C351BB6B752009A1723 /* Notify.h */,
 				2C280C371BB6B752009A1723 /* Info.plist */,
 			);
@@ -84,6 +87,14 @@
 				2C280C431BB6B752009A1723 /* Info.plist */,
 			);
 			path = NotifyTests;
+			sourceTree = "<group>";
+		};
+		2C65BB211BB6BCFB00C8EAB3 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2C65BB221BB6BCFB00C8EAB3 /* Notify.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C65BB231BB6BCFB00C8EAB3 /* Notify.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +387,7 @@
 				2C280C481BB6B752009A1723 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2C280C491BB6B752009A1723 /* Build configuration list for PBXNativeTarget "NotifyTests" */ = {
 			isa = XCConfigurationList;
@@ -383,6 +396,7 @@
 				2C280C4B1BB6B752009A1723 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
