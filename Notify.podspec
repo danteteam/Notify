@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "http://EXAMPLE/Notify.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://danteteam@github.com/danteteam/Notify.git", :tag => "0.0.2" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -91,6 +91,7 @@ Pod::Spec.new do |s|
 
   s.source_files  = "Notify/Classes", "Notify/Classes/**/*.swift"
   s.exclude_files = "Classes/Exclude"
+  s.watchos.source_files = "Notify/Classes", "Notify/Classes/**/*.swift"
 
   # s.public_header_files = "Notify/**/*.h"
 
