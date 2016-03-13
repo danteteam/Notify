@@ -13,10 +13,10 @@ public func notify(who: NSObject) -> Notifier {
     return Notifier(object: who)
 }
 
-public func postAbout(something: String..., and andData: [NSObject : AnyObject]? = nil, fromObject object: AnyObject? = nil) {
-    let center = NSNotificationCenter.defaultCenter()
-    something.forEach { center.postNotificationName($0, object: object, userInfo: andData) }
-}
+//public func postAbout(something: String..., and andData: [NSObject : AnyObject]? = nil, fromObject object: AnyObject? = nil) {
+//    let center = NSNotificationCenter.defaultCenter()
+//    something.forEach { center.postNotificationName($0, object: object, userInfo: andData) }
+//}
 
 public func postNotification(about something: String..., and andData : [NSObject : AnyObject]? = nil, fromObject object: AnyObject? = nil) {
     let center = NSNotificationCenter.defaultCenter()
