@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2C280C361BB6B752009A1723 /* Notify.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C280C351BB6B752009A1723 /* Notify.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2C280C3D1BB6B752009A1723 /* Notify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C280C321BB6B752009A1723 /* Notify.framework */; settings = {ASSET_TAGS = (); }; };
+		2C280C3D1BB6B752009A1723 /* Notify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C280C321BB6B752009A1723 /* Notify.framework */; };
 		2C280C421BB6B752009A1723 /* NotifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C280C411BB6B752009A1723 /* NotifyTests.swift */; };
+		9FACE2601C46D1F60091731F /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FACE25F1C46D1F60091731F /* Notify.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		2C280C3C1BB6B752009A1723 /* NotifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C280C411BB6B752009A1723 /* NotifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifyTests.swift; sourceTree = "<group>"; };
 		2C280C431BB6B752009A1723 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FACE25F1C46D1F60091731F /* Notify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notify.swift; path = Classes/Notify.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		2C280C341BB6B752009A1723 /* Notify */ = {
 			isa = PBXGroup;
 			children = (
+				9FACE25F1C46D1F60091731F /* Notify.swift */,
 				2C280C351BB6B752009A1723 /* Notify.h */,
 				2C280C371BB6B752009A1723 /* Info.plist */,
 			);
@@ -142,6 +145,7 @@
 		2C280C291BB6B752009A1723 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Dantelab;
 				TargetAttributes = {
@@ -193,6 +197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FACE2601C46D1F60091731F /* Notify.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,28 +312,35 @@
 		2C280C471BB6B752009A1723 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Notify/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dantelab.Notify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		2C280C481BB6B752009A1723 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Notify/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dantelab.Notify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -375,6 +387,7 @@
 				2C280C481BB6B752009A1723 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2C280C491BB6B752009A1723 /* Build configuration list for PBXNativeTarget "NotifyTests" */ = {
 			isa = XCConfigurationList;
@@ -383,6 +396,7 @@
 				2C280C4B1BB6B752009A1723 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
