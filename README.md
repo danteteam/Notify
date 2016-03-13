@@ -1,6 +1,15 @@
 # Notify
 Simplify usage of NSNotificationCenter
 
+Install using CocoaPods:
+
+```
+pod 'Notify', :git => 'https://github.com/ivabra/Notify'
+```
+
+
+**Example:**
+
 ```swift
 let BreakfastIsReadyNotification = "BreakfastIsReadyNotification"
 let LunchIsReadyNotification =  "LunchIsReadyNotification"
