@@ -9,7 +9,7 @@
 import Foundation
 
 
-public func notify(who: NSObject) -> Notifier {
+public func notify(_ who: NSObject) -> Notifier {
     return Notifier(object: who)
 }
 
@@ -18,53 +18,53 @@ public func notify(who: NSObject) -> Notifier {
 //    something.forEach { center.postNotificationName($0, object: object, userInfo: andData) }
 //}
 
-public func postNotification(about something: String..., and andData : [NSObject : AnyObject]? = nil, fromObject object: AnyObject? = nil) {
-    let center = NSNotificationCenter.defaultCenter()
-    something.forEach { center.postNotificationName($0, object: object, userInfo: andData) }
+public func postNotification(about something: String..., and andData : [AnyHashable: Any]? = nil, fromObject object: AnyObject? = nil) {
+    let center = NotificationCenter.default
+    something.forEach { center.post(name: Notification.Name(rawValue: $0), object: object, userInfo: andData) }
 }
 
-public class Notifier {
+open class Notifier {
     
-    private var intents = [Intent]()
-    private weak var object: NSObject!
-    private init(object: NSObject) {
+    fileprivate var intents = [Intent]()
+    fileprivate weak var object: NSObject!
+    fileprivate init(object: NSObject) {
         self.object = object
     }
     
-   public  func about(something: String...) -> Intent {
+   open  func about(_ something: String...) -> Intent {
         return Intent(parent: self, notificationNames: something)
     }
     
-   public  func about(something: String..., fromObject object: NSObject) -> Intent {
+   open  func about(_ something: String..., fromObject object: NSObject) -> Intent {
         return Intent(parent: self, notificationNames: something, fromObject: object)
     }
     
     
-   public  class Intent{
-        private var selector: Selector!
-        private var tokens: [NSObjectProtocol]!
-        private let notificationNames: [String]
-        private let parent: Notifier
-        private weak var fromObject: NSObject?
+   open  class Intent{
+        fileprivate var selector: Selector!
+        fileprivate var tokens: [NSObjectProtocol]!
+        fileprivate let notificationNames: [String]
+        fileprivate let parent: Notifier
+        fileprivate weak var fromObject: NSObject?
         
-        private init(parent: Notifier, notificationNames: [String], fromObject: NSObject? = nil) {
+        fileprivate init(parent: Notifier, notificationNames: [String], fromObject: NSObject? = nil) {
             self.parent = parent
             self.notificationNames = notificationNames
             self.fromObject = fromObject
         }
         
-       public  func to(selector: Selector) -> Notifier {
-            notificationNames.forEach {NSNotificationCenter.defaultCenter().addObserver(parent.object, selector: selector, name: $0, object: fromObject) }
+       open  func to(_ selector: Selector) -> Notifier {
+            notificationNames.forEach {NotificationCenter.default.addObserver(parent.object, selector: selector, name: NSNotification.Name(rawValue: $0), object: fromObject) }
             
             return parent
         }
         
-       public  func to(block: (NSNotification) -> Void) -> Notifier {
-            return self.to(NSOperationQueue.mainQueue(), block: block)
+       open  func to(_ block: @escaping (Notification) -> Void) -> Notifier {
+            return self.to(OperationQueue.main, block: block)
         }
         
-        public func to(queue: NSOperationQueue, block: (NSNotification) -> Void) -> Notifier {
-            tokens = notificationNames.map{NSNotificationCenter.defaultCenter().addObserverForName($0, object: fromObject, queue: queue, usingBlock: block)}
+        open func to(_ queue: OperationQueue, block: @escaping (Notification) -> Void) -> Notifier {
+            tokens = notificationNames.map{NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: $0), object: fromObject, queue: queue, using: block)}
           
             return parent
         }
@@ -72,8 +72,8 @@ public class Notifier {
         
     }
     
-   public func destroy(){
-        let center = NSNotificationCenter.defaultCenter()
+   open func destroy(){
+        let center = NotificationCenter.default
         if let o = object {
             center.removeObserver(o)
         }
