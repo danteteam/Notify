@@ -18,58 +18,61 @@ public func notify(_ who: NSObject) -> Notifier {
 //    something.forEach { center.postNotificationName($0, object: object, userInfo: andData) }
 //}
 
-public func postNotification(about something: String..., and andData : [AnyHashable: Any]? = nil, fromObject object: AnyObject? = nil) {
+public func postNotifications(names: Notification.Name..., and andData : [AnyHashable: Any]? = nil, fromObject object: AnyObject? = nil) {
     let center = NotificationCenter.default
-    something.forEach { center.post(name: Notification.Name(rawValue: $0), object: object, userInfo: andData) }
+    names.forEach { center.post(name: $0, object: object, userInfo: andData) }
 }
 
 open class Notifier {
     
-    fileprivate var intents = [Intent]()
+    fileprivate var intents = Set<Intent>()
+    //let weakToStrongMap  = NSMapTable<NSObject, NSArray>.weakToStrongObjects()
     fileprivate weak var object: NSObject!
+    
     fileprivate init(object: NSObject) {
         self.object = object
     }
     
-   open  func about(_ something: String...) -> Intent {
-        return Intent(parent: self, notificationNames: something)
+    open  func about(_ notifications: Notification.Name...) -> Intent {
+        return Intent(parent: self, notificationNames: Set(notifications))
     }
     
-   open  func about(_ something: String..., fromObject object: NSObject) -> Intent {
-        return Intent(parent: self, notificationNames: something, fromObject: object)
+   open  func about(_ notifications: Notification.Name..., fromObject object: NSObject) -> Intent {
+        return Intent(parent: self, notificationNames: Set(notifications), fromObject: object)
     }
     
     
-   open  class Intent{
+    open class Intent : Hashable {
         fileprivate var selector: Selector!
         fileprivate var tokens: [NSObjectProtocol]!
-        fileprivate let notificationNames: [String]
+        fileprivate let notificationNames: Set<Notification.Name>
         fileprivate let parent: Notifier
         fileprivate weak var fromObject: NSObject?
         
-        fileprivate init(parent: Notifier, notificationNames: [String], fromObject: NSObject? = nil) {
+        fileprivate init(parent: Notifier, notificationNames: Set<Notification.Name>, fromObject: NSObject? = nil) {
             self.parent = parent
             self.notificationNames = notificationNames
             self.fromObject = fromObject
         }
         
        open  func to(_ selector: Selector) -> Notifier {
-            notificationNames.forEach {NotificationCenter.default.addObserver(parent.object, selector: selector, name: NSNotification.Name(rawValue: $0), object: fromObject) }
-            
+            notificationNames.forEach {NotificationCenter.default.addObserver(parent.object, selector: selector, name: $0, object: fromObject) }
+            return parent
+        }
+    
+        open func to(queue: OperationQueue, block: @escaping (Notification) -> Void) -> Notifier {
+            let tokens = notificationNames.map{NotificationCenter.default.addObserver(forName: $0, object: fromObject, queue: queue, using: block)}
+            self.tokens = tokens
             return parent
         }
         
-       open  func to(_ block: @escaping (Notification) -> Void) -> Notifier {
-            return self.to(OperationQueue.main, block: block)
+        public var hashValue: Int {
+            return ObjectIdentifier(self).hashValue
         }
         
-        open func to(_ queue: OperationQueue, block: @escaping (Notification) -> Void) -> Notifier {
-            tokens = notificationNames.map{NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: $0), object: fromObject, queue: queue, using: block)}
-          
-            return parent
+        public static func == (left: Intent, right: Intent) -> Bool {
+            return left === right
         }
-        
-        
     }
     
    open func destroy(){
@@ -77,6 +80,7 @@ open class Notifier {
         if let o = object {
             center.removeObserver(o)
         }
+    
         intents.forEach {
             if let tokens = $0.tokens {
                 tokens.forEach {
